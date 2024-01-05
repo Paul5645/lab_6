@@ -2,7 +2,7 @@
 #include <new>
 
 template <typename T>
-class List {
+class StackBasedOnBidirectionalCyclicLinkedList {
 private:
     template <typename T>
     class Node {
@@ -39,61 +39,61 @@ public:
     bool Peek(T& element) const;
 
     // Конструктор по умолчанию
-    List();
+    StackBasedOnBidirectionalCyclicLinkedList();
 
     // Конструктор копирования
-    List(const List<T>& other);
+    StackBasedOnBidirectionalCyclicLinkedList(const StackBasedOnBidirectionalCyclicLinkedList<T>& other);
 
     // Конструктор перемещения
-    List(List<T>&& other);
+    StackBasedOnBidirectionalCyclicLinkedList(StackBasedOnBidirectionalCyclicLinkedList<T>&& other);
 
     // Конструктор, принимающий на вход std::initializer_list
-    List(std::initializer_list<T> ilist);
+    StackBasedOnBidirectionalCyclicLinkedList(std::initializer_list<T> ilist);
 
     // Деструктор
-    ~List();
+    ~StackBasedOnBidirectionalCyclicLinkedList();
 
     // Переопределение оператора присваивания (копирования)
-    List<T>& operator=(const List<T>& other);
+    StackBasedOnBidirectionalCyclicLinkedList<T>& operator=(const StackBasedOnBidirectionalCyclicLinkedList<T>& other);
     
     // Переопределение оператора присваивания (перемещение)
-    List<T>& operator=(List<T>&& other);
+    StackBasedOnBidirectionalCyclicLinkedList<T>& operator=(StackBasedOnBidirectionalCyclicLinkedList<T>&& other);
 
     // Переопределение оператора присваивания (с использованием initializer_list)
-    List<T>& operator=(std::initializer_list<T> ilist);
+    StackBasedOnBidirectionalCyclicLinkedList<T>& operator=(std::initializer_list<T> ilist);
 };
 
 template<typename T>
-List<T>::List()
+StackBasedOnBidirectionalCyclicLinkedList<T>::StackBasedOnBidirectionalCyclicLinkedList()
 {
     size = 0;
     top = nullptr;
 }
 
 template<typename T>
-List<T>::~List() {
+StackBasedOnBidirectionalCyclicLinkedList<T>::~StackBasedOnBidirectionalCyclicLinkedList() {
     clear();  // Очищаем список, используя функцию clear
 }
 
 
 template <typename T>
-List<T>::List(const List<T>& other) : top(nullptr), size(0) {
+StackBasedOnBidirectionalCyclicLinkedList<T>::StackBasedOnBidirectionalCyclicLinkedList(const StackBasedOnBidirectionalCyclicLinkedList<T>& other) : top(nullptr), size(0) {
     *this = other;  // Используем оператор присваивания
 }
 
 template <typename T>
-List<T>::List(List<T>&& other) : top(nullptr), size(0) {
+StackBasedOnBidirectionalCyclicLinkedList<T>::StackBasedOnBidirectionalCyclicLinkedList(StackBasedOnBidirectionalCyclicLinkedList<T>&& other) : top(nullptr), size(0) {
     *this = std::move(other);  // Используем оператор присваивания перемещения
 }
 
 template <typename T>
-List<T>::List(std::initializer_list<T> ilist) : top(nullptr), size(0) {
+StackBasedOnBidirectionalCyclicLinkedList<T>::StackBasedOnBidirectionalCyclicLinkedList(std::initializer_list<T> ilist) : top(nullptr), size(0) {
     *this = ilist;  // Используем оператор присваивания
 }
 
 
 template <typename T>
-List<T>& List<T>::operator=(const List<T>& other) {
+StackBasedOnBidirectionalCyclicLinkedList<T>& StackBasedOnBidirectionalCyclicLinkedList<T>::operator=(const StackBasedOnBidirectionalCyclicLinkedList<T>& other) {
     // Защита от самоприсваивания
     if (this != &other) {
         // Очищаем текущий список
@@ -120,7 +120,7 @@ List<T>& List<T>::operator=(const List<T>& other) {
 }
 
 template <typename T>
-List<T>& List<T>::operator=(List<T>&& other) {
+StackBasedOnBidirectionalCyclicLinkedList<T>& StackBasedOnBidirectionalCyclicLinkedList<T>::operator=(StackBasedOnBidirectionalCyclicLinkedList<T>&& other) {
     if (this != &other) {  // Защита от самоприсваивания
         clear();  // Очищаем текущий список
 
@@ -138,7 +138,7 @@ List<T>& List<T>::operator=(List<T>&& other) {
 
 
 template <typename T>
-List<T>& List<T>::operator=(std::initializer_list<T> ilist) {
+StackBasedOnBidirectionalCyclicLinkedList<T>& StackBasedOnBidirectionalCyclicLinkedList<T>::operator=(std::initializer_list<T> ilist) {
     clear();  // Очистка текущего списка
 
     // Добавление каждого элемента из списка инициализации
@@ -150,7 +150,7 @@ List<T>& List<T>::operator=(std::initializer_list<T> ilist) {
 }
 
 template<typename T>
-void List<T>::clear() {
+void StackBasedOnBidirectionalCyclicLinkedList<T>::clear() {
     Node<T>* prevNode;
     while (size > 0) {
         prevNode = top->prev; // Сохраняем ссылку на предыдущий элемент
@@ -163,7 +163,7 @@ void List<T>::clear() {
 }
 
 template<typename T>
-bool List<T>::Push(const T& element) {
+bool StackBasedOnBidirectionalCyclicLinkedList<T>::Push(const T& element) {
     // Создаем новый узел
     Node<T>* newNode = new(std::nothrow) Node<T>(element);
 
@@ -192,7 +192,7 @@ bool List<T>::Push(const T& element) {
 }
 
 template<typename T>
-bool List<T>::Pop(T& element) {
+bool StackBasedOnBidirectionalCyclicLinkedList<T>::Pop(T& element) {
     // Проверяем, пуст ли стек
     if (top == nullptr) {
         // Стек пуст
@@ -222,7 +222,7 @@ bool List<T>::Pop(T& element) {
 }
 
 template<typename T>
-bool List<T>::Peek(T& element) const {
+bool StackBasedOnBidirectionalCyclicLinkedList<T>::Peek(T& element) const {
     // Проверяем, пуст ли стек
     if (top == nullptr) {
         // Стек пуст
