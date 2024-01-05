@@ -61,8 +61,6 @@ public:
 
     // Переопределение оператора присваивания (с использованием initializer_list)
     List<T>& operator=(std::initializer_list<T> ilist);
-
-
 };
 
 template<typename T>
@@ -236,6 +234,8 @@ bool List<T>::Peek(T& element) const {
 
     return true;
 }
+
+
 
 int main() {
     return 0;
